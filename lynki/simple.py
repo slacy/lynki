@@ -18,21 +18,25 @@ from lynki.extensions.meta import  MetaExtension
 # reprocess all documents, generating links for every N-gram
 
 
-def find_corpus(root, suffix):
+def find_corpus(root):
     """find_corpus"""
 
-    def visit(_found, dirname, names):
-        """visit"""
-        if dirname.startswith('_'):
-            return
-        new = [os.path.abspath(os.path.join(dirname, fn))
-               for fn in names if (
-                fn.endswith(suffix) and not fn.startswith('.'))]
-        _found += new
+    def find_files(starting):
+        """Recurse into starting_dir and return a list of files ending in .jinja2"""
+        contents = os.listdir(starting)
+        found_files = []
+        for name in contents:
+            if name.startswith('.') or name.startswith('_'):
+                continue
+            elif os.path.isdir(name):
+                found_files += find_files(os.path.join(starting, name))
+            else:
+                if name.endswith(".jinja2"):
+                    found_files.append(os.path.join(starting, name))
+        return found_files
 
-    found_files = []
+    found_files = find_files(root)
 
-    os.path.walk(root, visit, found_files)
     return found_files
 
 
@@ -93,7 +97,7 @@ class Preprocessor(object):
 
 def main():
     """main"""
-    corpus = find_corpus(os.curdir, '.jinja2')
+    corpus = find_corpus(os.path.abspath(os.curdir))
 
     pre = Preprocessor()
 
