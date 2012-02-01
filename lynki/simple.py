@@ -23,6 +23,8 @@ def find_corpus(root, suffix):
 
     def visit(_found, dirname, names):
         """visit"""
+        if dirname.startswith('_'):
+            return
         new = [os.path.abspath(os.path.join(dirname, fn))
                for fn in names if (
                 fn.endswith(suffix) and not fn.startswith('.'))]
@@ -32,18 +34,6 @@ def find_corpus(root, suffix):
 
     os.path.walk(root, visit, found_files)
     return found_files
-
-
-def find_layout(filepath):
-    """find_layout"""
-    fullpath = os.path.abspath(filepath)
-    while fullpath != '/':
-        base = os.path.dirname(fullpath)
-        layout = os.path.join(base, '_layout')
-        if os.path.exists(layout):
-            return layout
-        fullpath = base
-    return None
 
 
 def find_root(filepath):
