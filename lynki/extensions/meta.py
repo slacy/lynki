@@ -30,4 +30,4 @@ class MetaExtension(Extension):
         # self.environment.metamap.update()
         python_data = simplejson.loads(caller())
         self.environment.metamap.update({template_name: python_data})
-        return "<!-- %s -->" % str(python_data)
+        return "<!-- META:\n%s\n-->\n" % str(python_data)
