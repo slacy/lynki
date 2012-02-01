@@ -1,7 +1,0 @@
--e git+https://github.com/pinard/Pymacs.git#egg=Pymacs-dev
-pep8
-pyflakes
-pylint
--e hg+https://bitbucket.org/agr/rope#egg=rope-dev
--e hg+https://bitbucket.org/agr/ropemacs#egg=ropemacs-trunk
--e hg+https://bitbucket.org/agr/ropemode#egg=ropemode-trunk
