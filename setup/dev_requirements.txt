@@ -1,0 +1,7 @@
+-e git+https://github.com/pinard/Pymacs.git#egg=Pymacs
+pep8
+pyflakes
+pylint
+hg+https://bitbucket.org/agr/rope
+hg+https://bitbucket.org/agr/ropemacs
+hg+https://bitbucket.org/agr/ropemode

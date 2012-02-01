@@ -1,0 +1,4 @@
+*~
+.ropeproject/
+*.pyc
+linky.egg-info/
