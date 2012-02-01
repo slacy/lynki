@@ -3,7 +3,11 @@ import os
 
 from jinja2 import Environment, FileSystemLoader
 
-from lynki.extensions import MarkdownExtension, MetaExtension, LinkExtension, FileExtension
+from lynki.extensions.file import FileExtension
+from lynki.extensions.link import LinkExtension
+from lynki.extensions.markdown import MarkdownExtension
+from lynki.extensions.meta import  MetaExtension
+
 
 # Recursively find all text files
 # Process files into lists of words
