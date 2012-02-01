@@ -1,4 +1,4 @@
-import simplejson
+import yaml
 from jinja2 import nodes
 from jinja2.ext import Extension
 
@@ -28,6 +28,6 @@ class MetaExtension(Extension):
 
     def _meta_support(self, template_name, caller):
         # self.environment.metamap.update()
-        python_data = simplejson.loads(caller())
+        python_data = yaml.load(caller())
         self.environment.metamap.update({template_name: python_data})
         return "<!-- META:\n%s\n-->\n" % str(python_data)
