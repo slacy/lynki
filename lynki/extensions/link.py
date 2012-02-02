@@ -25,7 +25,6 @@ class LinkExtension(Extension):
     def format_result(self, href, page_title):
         return '<a href="%s">%s</a>' % (href, page_title)
 
-
     def _link_support(self, this_page, root, this_template, page_title):
         """WAT"""
 
@@ -33,14 +32,20 @@ class LinkExtension(Extension):
             return page_title
 
         target_filename = None
+        target_link = None
         for template, meta in self.environment.metamap.iteritems():
             inbound_lower = [s.lower() for s in meta['inbound']]
-            if 'inbound' in meta and page_title.lower() in inbound_lower:
+            lower_title = page_title.lower()
+            if 'inbound' in meta and lower_title in inbound_lower:
                 target_filename = template
+            if 'outbound' in meta and lower_title in [s.lower() for s in meta['outbound'].keys()]:
+                target_link = meta['outbound'][lower_title]
 
-        if not target_filename:
+        if not (target_filename or target_link):
             raise Exception(
-                "Can't find target_filename link for '%s'" % page_title)
+                "Can't find inbound or outbound link for '%s'" % page_title)
+        if target_link:
+            return self.format_result(target_link, page_title)
 
         (target_dir, target_file) = os.path.split(target_filename)
         (this_dir, _this_file) = os.path.split(this_template)
