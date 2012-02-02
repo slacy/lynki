@@ -22,6 +22,10 @@ class LinkExtension(Extension):
 
         return nodes.Output([make_call_node()]).set_lineno(tag.lineno)
 
+    def format_result(self, href, page_title):
+        return '<a href="%s">%s</a>' % (href, page_title)
+
+
     def _link_support(self, this_page, root, this_template, page_title):
         """WAT"""
 
@@ -43,6 +47,5 @@ class LinkExtension(Extension):
         relative_filename = os.path.join(relative_dir, target_file)
 
         # Switch here relative vs. absolute, etc.
-        href = relative_filename
-        result = '<a href="%s">%s</a>' % (href, page_title)
-        return result
+        return self.format_result(relative_filename.replace(".jinja2", ".html"),
+                                  page_title)

@@ -6,7 +6,8 @@ from jinja2 import Environment, FileSystemLoader
 from lynki.extensions.file import FileExtension
 from lynki.extensions.link import LinkExtension
 from lynki.extensions.markdown import MarkdownExtension
-from lynki.extensions.meta import  MetaExtension
+from lynki.extensions.meta import MetaExtension
+from lynki.extensions.url import UrlExtension
 
 
 # Recursively find all text files
@@ -65,7 +66,9 @@ class Preprocessor(object):
 
         env = Environment(
             loader=FileSystemLoader(root),
-            extensions=[MarkdownExtension, MetaExtension, LinkExtension, FileExtension])
+            extensions=[MarkdownExtension, MetaExtension,
+                        LinkExtension, FileExtension,
+                        UrlExtension])
         self.env_map[root] = env
         return env
 
