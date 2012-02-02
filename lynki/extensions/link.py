@@ -34,7 +34,8 @@ class LinkExtension(Extension):
 
         target_filename = None
         for template, meta in self.environment.metamap.iteritems():
-            if 'inbound' in meta and page_title in meta['inbound']:
+            inbound_lower = [s.lower() for s in meta['inbound']]
+            if 'inbound' in meta and page_title.lower() in inbound_lower:
                 target_filename = template
 
         if not target_filename:
